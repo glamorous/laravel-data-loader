@@ -1,0 +1,46 @@
+{
+    "name": "glamorous/laravel-data-loader",
+    "description": "Small package to provide tools for data migrations and loading initial data into your database",
+    "keywords": [
+        "glamorous",
+        "laravel",
+        "database",
+        "data-loader"
+    ],
+    "homepage": "https://github.com/glamorous/laravel-data-loader",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jonas De Smet",
+            "email": "jonas@glamorous.be",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8",
+        "illuminate/contracts": "^10.0||^11.0"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.14"
+    },
+    "autoload": {
+        "psr-4": {
+            "Glamorous\\DataLoader\\": "src/"
+        }
+    },
+    "scripts": {
+        "format": "vendor/bin/pint"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Glamorous\\DataLoader\\ServiceProviders\\DataLoaderServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
