@@ -42,8 +42,8 @@ class DataLoaderCommand extends Command
             ->ensure(DataLoader::class)
             ->filter(fn (DataLoader $loaderClass) => $this->option('force') || $loaderClass->shouldLoad());
 
-        if ($this->option('force')) {
-            $this->warn('Command is running with --force option.');
+        if ($this->option('force') && $this->confirm('Command is running with --force option. Do you wish to continue?') === false) {
+            return;
         }
 
         if ($this->option('dry-run')) {

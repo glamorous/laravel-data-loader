@@ -102,7 +102,7 @@ php artisan data-loader:run EnsureSuperAdminIsPresent
 
 #### Options
 
-If necessary you can run the command with the `--force` flag. This way it would not check if its data needs to be loaded or not.
+If necessary you can run the command with the `--force` flag. This way it would not check if its data needs to be loaded or not. It's required to confirm your choice.
 
 If you want to see which loaders would be executed, without executing them, you can pass the `--dry-run` option, and it will show you the loaders that would have executed.
 
