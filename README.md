@@ -94,13 +94,17 @@ Or you can just call the command in your CI-scripts:
 php artisan data-loader:run
 ```
 
-If necessary you can run the command with the `--force` flag. This way it would not check if it data needs to be loaded or not.
-
 It's also possible to run the data-loader only for one specific data-loader class:
 
 ```bash
 php artisan data-loader:run EnsureSuperAdminIsPresent
 ```
+
+#### Options
+
+If necessary you can run the command with the `--force` flag. This way it would not check if its data needs to be loaded or not.
+
+If you want to see which loaders would be executed, without executing them, you can pass the `--dry-run` option, and it will show you the loaders that would have executed.
 
 ## Contributing
 

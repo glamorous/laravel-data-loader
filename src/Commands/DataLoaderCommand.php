@@ -12,7 +12,7 @@ use Symfony\Component\Console\Input\InputOption;
 
 class DataLoaderCommand extends Command
 {
-    protected $signature = 'data-loader:run {loaderClass?} {--force}';
+    protected $signature = 'data-loader:run {loaderClass?} {--force} {--dry-run}';
 
     protected $description = 'Ensure the required data is loaded to run the application.';
 
@@ -37,7 +37,34 @@ class DataLoaderCommand extends Command
             $loaders = collect([$loader]);
         }
 
-        $this->invokeLoaders($loaders);
+        $loadersToInvoke = $loaders
+            ->map(fn (string $fullClassName) => new $fullClassName)
+            ->ensure(DataLoader::class)
+            ->filter(fn (DataLoader $loaderClass) => $this->option('force') || $loaderClass->shouldLoad());
+
+        if ($this->option('force')) {
+            $this->warn('Command is running with --force option.');
+        }
+
+        if ($this->option('dry-run')) {
+            $this->warn('Command is running with --dry-run option.');
+        }
+
+        if ($loadersToInvoke->isEmpty()) {
+            $this->info('No loaders to execute.');
+
+            return;
+        }
+
+        if ($this->option('dry-run')) {
+            $loadersToInvoke->each(function (DataLoader $loader) {
+                $this->info(class_basename($loader) . ' would have executed.');
+            });
+
+            return;
+        }
+
+        $this->invokeLoaders($loadersToInvoke);
     }
 
     protected function getOptions(): array
@@ -57,9 +84,9 @@ class DataLoaderCommand extends Command
     private function invokeLoaders(Collection $loaders): void
     {
         $loaders
-            ->map(fn (string $fullClassName) => new $fullClassName)
-            ->ensure(DataLoader::class)
-            ->filter(fn (DataLoader $loaderClass) => $this->option('force') || $loaderClass->shouldLoad())
-            ->each(fn (DataLoader $loaderClass) => $loaderClass());
+            ->each(function (DataLoader $loaderClass) {
+                $loaderClass();
+                $this->info(class_basename($loaderClass) . ' executed successfully.');
+            });
     }
 }
