@@ -37,7 +37,7 @@ Provide a list of loaders in `config/data-loader.php` with their class names. Th
 namespace Database\States;
 
 use App\Models\User;
-use Glamorous\Database\DataLoader;
+use Glamorous\DataLoader\Database\DataLoader;
 
 readonly final class EnsureSuperAdminIsPresent implements DataLoader
 {
