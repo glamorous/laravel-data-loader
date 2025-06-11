@@ -2,6 +2,6 @@
 
 return [
     'loaders' => [
-        // new EnsureSomeDataIsPresent,
+        // EnsureSomeDataIsPresent::class,
     ],
 ];

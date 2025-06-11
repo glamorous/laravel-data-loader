@@ -34,7 +34,7 @@ Provide a list of loaders in `config/data-loader.php` with their class names. Th
 ```php
 <?php
 
-namespace App\Database\State;
+namespace Database\States;
 
 use App\Models\User;
 use Glamorous\Database\DataLoader;
